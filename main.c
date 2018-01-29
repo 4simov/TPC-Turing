@@ -4,7 +4,30 @@
 #include "turing.h"
 
 void execute_action(unsigned int action)
-{ a=action>>
+{ unsigned int a=(action>>6);
+	unsigned int b=(action>>5) & 0b0001;
+	unsigned int c=(action>>3) & 0b000011;
+	unsigned int d =(action>>2) &0b0000001;
+	unsigned int e = action & 	 0b000000011;
+	
+	
+	ecrire_tete(1,b);
+	
+	ecrire_tete(2,d);
+	
+	if (c==0b10){
+		gauche(1);}
+
+	else if (c==0b11){
+		droite(1);}
+		
+	if (e==0b10){
+		gauche(2);}
+
+	else if (e==0b11){
+		droite(2);}
+		
+	ecrire_etat(a);
 }
 
 void run()
