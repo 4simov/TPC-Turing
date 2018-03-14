@@ -5,15 +5,11 @@
 
 ///----------- programme de démonstration au format humain ------------
 
-unsigned NDEMO = 6;
+unsigned NDEMO = 2;
 const char* DEMO[] =
 {
-	"00: 00->(01)0G0G 01->(00)1D0D 10->(00)0D1D 11->(00)1D1D",
-	"01: 00->(02)0D0D 01->(01)0G1G 10->(01)1G0G 11->(01)1G1G",
-	"02: 00->(03)0X0X 01->(03)0X1X 10->(02)1D0X 11->(02)1D1X",
-	"03: 00->(04)0G0G 01->(03)1D1D 10->(05)1G0X 11->(05)1G1X",
-	"04: 00->(00)0D0D 01->(04)0X1G 10->(04)1G0X 11->(04)1G1G",
-	"05: 00->(03)0D0X 01->(03)0D1X 10->(05)0G0X 11->(05)0G1X"
+	"00: 00->(01)0G0D 01->(01)0D0D",
+	"01: 00->(00)1G1G 01->(01)1D1D"
 };
 
 ///-------------- programme au format machine et état -----------------
@@ -25,7 +21,7 @@ unsigned int etat = 0;
 typedef struct
 {
 	unsigned etat;      // état associé à la ligen de programme
-	unsigned action[4]; // actions pour tête1/tête2 = 00, 01, 10, 11
+	unsigned action[2]; // actions pour tête1/tête2 = 00, 01, 10, 11
 }prline;
 
 // représentation du programme de la machine de Turing à deux bandes
@@ -71,8 +67,8 @@ void compileLigne(const char* line, prline* dest)
 	dest->etat = str2u(line,2);
 	dest->action[0] = decode(line+8);
 	dest->action[1] = decode(line+21);
-	dest->action[2] = decode(line+34);
-	dest->action[3] = decode(line+47);
+	//dest->action[2] = decode(line+34);
+	//dest->action[3] = decode(line+47);
 }
 
 ///---------- Fonction d'accès au programme et à l'état courant -------
@@ -121,7 +117,7 @@ void printBin(unsigned val, int n)
 void printProg(program* p)
 {
 	int n=p->netats;
-	int i, j;// erreur de compilation lorsqu'ils sont déclaré dans la boucle "program.c:125:2: error: ‘for’ loop initial declarations are only allowed in C99 or C11 mode"+++++++++++++++++
+	int i, j;// erreur de compilation lorsqu'ils sont déclarés dans la boucle "program.c:125:2: error: ‘for’ loop initial declarations are only allowed in C99 or C11 mode"+++++++++++++++++
 	printf("Nombre d'etats : %d\n",n);
 	for(i=0; i<n; i++)
 	{
@@ -192,9 +188,9 @@ void chargeProg(program* p)
 // lecture dans le programme en représentation machine (situé dans la variable
 // globale PROG) de l'action à exécuter pour l'état et les valeurs lues par les têtes
 // donnés en paramètres
-unsigned int lire_prog(unsigned int etat, unsigned char val_t1, unsigned char val_t2)
+unsigned int lire_prog(unsigned int etat, unsigned char val_t1)
 {
-    return PROG.tab[etat].action[val_t1*2+val_t2];/// A compléter
+    return PROG.tab[etat].action[val_t1];/// A compléter
 	
 }
 

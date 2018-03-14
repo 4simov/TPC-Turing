@@ -16,7 +16,7 @@ void ecrire_etat(unsigned int e);
 // Retourne un entier représentant l'action que le programme doit exécuter pour
 // l'état courant (etat = 0..Netats-1) et les valeurs lues par les deux têtes
 // (val_t1 = 0 ou 1, val_T2 = 0 ou 1).
-unsigned int lire_prog(unsigned int etat, unsigned char val_t1, unsigned char val_t2);
+unsigned int lire_prog(unsigned int etat, unsigned char val_t1);
 
 // Affichage du programme en représentation machine
 void test();
